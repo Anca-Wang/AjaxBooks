@@ -65,6 +65,37 @@ document.querySelector('.add-btn').addEventListener('click', () => {
 })
 
 
+// Delete Event
+// Select table body with the classname of list
+const list = document.querySelector('.list')
+
+list.addEventListener('click', e => {
+
+    // If the pressed key contains a del class name
+  if (e.target.classList.contains('del')) {
+
+    // Get the id of the deleted item
+    const id = e.target.parentNode.dataset.id
+
+    // Started axios
+    axios({
+      // delete the item with the selected id's url
+      url: `http://hmajax.itheima.net/api/books/${id}`,
+      method: 'delete'
+    }).then(() => {
+      // Rerender the book list after deleting
+      getBookList()
+    })
+
+  }
+
+})
+
+
+
+
+
+
 getBookList()
 
 
