@@ -71,7 +71,7 @@ const list = document.querySelector('.list')
 
 list.addEventListener('click', e => {
 
-    // If the pressed key contains a del class name
+  // If the pressed key contains a del class name
   if (e.target.classList.contains('del')) {
 
     // Get the id of the deleted item
@@ -92,9 +92,66 @@ list.addEventListener('click', e => {
 })
 
 
+// Edit Event 
+const editDom = document.querySelector('.edit-modal')
+const editModal = new bootstrap.Modal(editDom)
 
+// If clicked the edit btn
+document.querySelector('.list').addEventListener('click', (e) => {
 
+  if (e.target.classList.contains('edit')) {
 
+    const id = e.target.parentNode.dataset.id
+
+    // Get the current clicked book info from server using the same id
+    axios({
+      url: `http://hmajax.itheima.net/api/books/${id}`
+    }).then(result => {
+
+      // Method 1: Fill in all values to the input boxes
+      // document.querySelector('.edit-form .bookname').value = result.data.data.bookname
+      // document.querySelector('.edit-form .author').value = result.data.data.author
+      // document.querySelector('.edit-form .publisher').value = result.data.data.publisher
+
+      // Method 2: Loop through the bookObj object and fill in all values 
+      const bookObj = result.data.data
+      const keys = Object.keys(bookObj)
+      // console.log(keys), return ["id", "bookname", "author", "publisher" ]
+
+      keys.forEach((key) => {
+        document.querySelector(`.edit-form .${key}`).value = bookObj[key]
+      })
+
+      // Display the edit modal box
+      editModal.show()
+    })
+
+  }
+
+})
+
+// If clicked the save button inside the edit form
+document.querySelector('.edit-btn').addEventListener('click', (e) => {
+
+  // const id = e.target.parentNode.dataset.id
+  const editForm = document.querySelector('.edit-form')
+  const { id, bookname, author, publisher } = serialize(editForm, { hash: true, empty: true })
+
+  axios({
+    url: `http://hmajax.itheima.net/api/books/${id}`,
+    method: 'put',
+    data: {
+      bookname,
+      author,
+      publisher,
+      creator
+    }
+
+  }).then(result => {
+    getBookList()
+  })
+  editModal.hide()
+})
 
 getBookList()
 
