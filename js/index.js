@@ -5,7 +5,7 @@ const creator = 'Anca'
 function getBookList() {
 
   axios({
-    url: 'http://hmajax.itheima.net/api/books',
+    url: 'https://hmajax.itheima.net/api/books',
     params: {
       creator
     }
@@ -46,7 +46,7 @@ document.querySelector('.add-btn').addEventListener('click', () => {
   const bookItem = serialize(addForm, { hash: true, empty: true })
 
   axios({
-    url: 'http://hmajax.itheima.net/api/books',
+    url: 'https://hmajax.itheima.net/api/books',
     method: 'post',
     data: {
       ...bookItem,
@@ -80,7 +80,7 @@ list.addEventListener('click', e => {
     // Started axios
     axios({
       // delete the item with the selected id's url
-      url: `http://hmajax.itheima.net/api/books/${id}`,
+      url: `https://hmajax.itheima.net/api/books/${id}`,
       method: 'delete'
     }).then(() => {
       // Rerender the book list after deleting
@@ -105,7 +105,7 @@ document.querySelector('.list').addEventListener('click', (e) => {
 
     // Get the current clicked book info from server using the same id
     axios({
-      url: `http://hmajax.itheima.net/api/books/${id}`
+      url: `https://hmajax.itheima.net/api/books/${id}`
     }).then(result => {
 
       // Method 1: Fill in all values to the input boxes
@@ -138,7 +138,7 @@ document.querySelector('.edit-btn').addEventListener('click', (e) => {
   const { id, bookname, author, publisher } = serialize(editForm, { hash: true, empty: true })
 
   axios({
-    url: `http://hmajax.itheima.net/api/books/${id}`,
+    url: `https://hmajax.itheima.net/api/books/${id}`,
     method: 'put',
     data: {
       bookname,
