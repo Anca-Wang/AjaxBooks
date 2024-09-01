@@ -1,7 +1,7 @@
 
 # Ajax Books
 
-### [Live Demo Address](https://anca-wang.github.io/AjaxBooks/)
+### [Live Demo](https://anca-wang.github.io/AjaxBooks/)
 
 ## Overview
 
